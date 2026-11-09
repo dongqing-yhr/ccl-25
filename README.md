@@ -160,4 +160,7 @@ denominator).
 
 ## License
 
-Not yet chosen by the authors; see `LICENSE` once added. Data licensing is the corpus note above.
+The code is MIT, in `LICENSE`. Two exceptions, both narrow: `baseline/README.txt` and
+`baseline/requirements.txt` are redistributed verbatim from the competition baseline package for
+provenance (see pitfall 8 in `docs/reproduction.md`), and the corpora themselves are CC BY-NC 4.0 and
+are not mirrored here, so the data-licensing note above governs anything you fetch separately.
