@@ -1,0 +1,25 @@
+# Data, weights and generated products are deliberately not tracked.
+saves/
+*.bin
+*.safetensors
+*.zip
+*.log
+__pycache__/
+*.pyc
+*.bak*
+
+# Corpora: CFN 2.2, CFN 1.0 and FrameNet 1.7 are downloaded separately (see README).
+dataset/
+datasets/
+datasets_paper/cfn1.0/
+datasets_paper/cfn1.0_task3/
+datasets_paper/framenet_splits/
+datasets_paper/framenet_task3/
+chinese-bert-wwm-ext/
+chinese-roberta-wwm-ext-large/
+chinese-macbert-large/
+bge-large-en-v1.5/
+models/
+
+# Submission packaging output.
+submit/

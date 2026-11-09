@@ -1,0 +1,15 @@
+# The container runs Linux and the chain drivers are bash scripts, so shell files must not come out
+# of a clone with CRLF endings. Working copies on Windows are a CRLF/LF mix.
+* text=auto eol=lf
+*.sh text eol=lf
+*.py text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.json text eol=lf
+*.tsv text eol=lf
+
+# Nothing here is binary; declare the ones that could be, so `git status` never normalises them.
+*.png binary
+*.jpg binary
+*.gz binary
+*.zip binary

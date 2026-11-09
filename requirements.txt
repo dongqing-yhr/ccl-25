@@ -1,0 +1,19 @@
+numpy==1.26.4
+torch==2.8.0
+transformers==4.35.2
+tqdm==4.67.1
+
+# Environment the reported runs actually executed in (measured 2026-11-09 inside the
+# competition container): Python 3.11.13, PyTorch 2.8.0+cu128 (CUDA 12.8), the four
+# packages above. Verify with:
+#   python -c "import sys,torch,transformers,numpy,tqdm; \
+#     print(sys.version.split()[0], torch.__version__, torch.version.cuda, \
+#           transformers.__version__, numpy.__version__, tqdm.__version__)"
+#
+# The upstream baseline shipped by the organisers lists numpy 1.23.5 / torch 1.13.0 /
+# transformers 4.24.0 and also lists `codecs` and `json`, which are standard-library
+# modules and make `pip install -r` fail. That file is kept untouched as
+# `baseline/README.txt`-adjacent upstream material; this file is the corrected one.
+#
+# GPU is only needed for training and for the probability dumps. Every reading produced
+# by a `runbash/*_1108.py` operator script runs on CPU.
