@@ -119,3 +119,22 @@ manufacture or erase a methodological difference. Every run behind a reported nu
 provenance. It pins an older torch/transformers pair (`torch==1.13.0`, `transformers==4.24.0`) than the
 one every reported run used, and lists `codecs` and `json`, which are standard-library modules, so
 `pip install -r baseline/requirements.txt` fails. Use the repository root's `requirements.txt`.
+
+## 9. Export the aligned English curve from existing probability tables
+
+The English role-prior curve and the English fusion rows use the target-admitted candidate pool.
+Once the per-member tables have been dumped under `dataset/devladder_en/probs/`, no GPU or retraining
+is needed. Run from `baseline_en/`:
+
+```bash
+python3 runbash/remeasure_en_targetpool_1116.py \
+  --dump dataset/devladder_en/probs \
+  --prefix P_t3_en_ \
+  --task1 dataset/devladder_en/dev_task1_test.json \
+  --curve_out logfile/en_count_shrunk_aligned_curve_1117.json
+```
+
+The script first checks the fixed-pool anchors, then writes 41 `(tau, F1)` points with a zero-strength
+anchor assertion. The CFN 2.2 acceptance rule is `P(NULL) <= 0.10` followed by a veto when the
+highest-scoring role is illegal for the predicted frame. It is not a role-probability cutoff, and the
+veto does not select the next legal role.

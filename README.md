@@ -39,14 +39,16 @@ one abstain rule, the one scorer) are identical across the three resources.
 | `optional-backbones/` | adapters for two encoders that are not ours (LERT, Chinese-ModernBERT) used only for the "does the backbone carry the gain" control cell |
 | `docs/` | `scoring.md` (the two rulers and the frozen anchors), `reproduction.md` (pitfalls that cost us a run) |
 
-The three working directories are the same code. Measured on the committed blobs: `baseline_c10/` and
-`baseline_en/` are identical to each other, file for file (46 files each). Of the 45 paths shared by
+The three working directories share the same production code. Measured on the committed blobs:
+`baseline_c10/` has 46 files and `baseline_en/` 47. Of the 45 paths shared by
 all three directories, one differs in content — `runbash/dump_member_probs.py`, which in the two newer
 resources gained `--model_config`/`--model_vocab` so one dump call can point every member at a
 different pretrained encoder. Eight files ship only in `baseline/`: the two files the competition
 distributed (`README.txt`, `requirements.txt`) and six reading generators that were run on the
 competition resource only. One file ships only in `baseline_c10/` and `baseline_en/`:
 `runbash/probe_gamma_control_1108.py`, the equal-strength prior control on the two newer resources.
+The English-only `baseline_en/runbash/remeasure_en_targetpool_1116.py` recomputes the
+target-admitted RI readings and exports the count-shrunk strength curve.
 `.gitattributes` forces LF endings so a checked-out `*.sh` runs under bash on Linux; the local working
 copies that produced these readings are a CRLF/LF mix, which is the only reason two of the shared
 files (`dataset_task3.py`, `score_official.py`) looked different before staging.
@@ -68,7 +70,7 @@ and `json`, which are standard-library modules, so `pip install -r` on that file
 | CFN 1.0 | `https://github.com/SXUNLP/Chinese-Frame-Semantic-Parsing`, files under `ccl-cfn/`; the path we actually pulled from is the fork mirror `https://raw.githubusercontent.com/masterpen/Chinese-Frame-Semantic-Parsing/HEAD/ccl-cfn/` |
 | FrameNet 1.7 splits for English | `https://hf-mirror.com/datasets/liyucheng/FrameNet_v17/resolve/main/` (used by `data-prep/dl_framenet_splits_1105.py`) |
 | `hfl/chinese-bert-wwm-ext`, `hfl/chinese-roberta-wwm-ext-large`, `hfl/chinese-macbert-large` | HuggingFace, or the mirror `https://hf-mirror.com` if the hub is unreachable from your network |
-| `BAAI/bge-large-en-v1.5` (English encoder for task 3) | `data-prep`-adjacent download script; **read the key-name note in `docs/reproduction.md` before loading this one into task 3** |
+| `BAAI/bge-large-en-v1.5` (English encoder) | `data-prep`-adjacent download script; **read the key-name note in `docs/reproduction.md` before loading this one into task 3** |
 
 CFN is released under CC BY-NC 4.0 (non-commercial research use), so the corpora are not mirrored
 here. Place the files under each working directory's `dataset/` and `datasets_paper/` trees.
@@ -115,6 +117,7 @@ that variable to your own host before running them.
 | R38 | task-2 fusion operator with the members fixed: per-member thresholds unioned, aligned average, unaligned average, plus the identity check that says when aligning is only a threshold shift | `baseline/runbash/r38_task2_operator_1108.sh`, `r38_scale_quantiles_1108.py`, `r38_idcheck_diag_1108.py` |
 | R48 | two-member probability average against each member alone | `*/runbash/r48_pair_fuse_1108.py` |
 | R50 | prior applied at training time against prior applied at decode time | `*/runbash/r50_decode_prior_1108.py` |
+| English target-admitted RI and count-shrunk curve | fixed-pool arms re-scored after target admission, plus the 41-point aligned curve | `baseline_en/runbash/remeasure_en_targetpool_1116.py` |
 | probability sidecars that R37, R48 and R50 read | per-member probability dumps | `*/runbash/dump_member_probs.py`, `*/runbash/probs_t3_to_npy_1108.py` |
 
 `*` is `baseline`, `baseline_c10` or `baseline_en`. The scripts that take paths as arguments run from
