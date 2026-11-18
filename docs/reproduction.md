@@ -90,8 +90,10 @@ arithmetic against the resource's own longest frame name.
 
 `params.py:21` registers `--seed` with `default=-1` and that value keeps the RNG unseeded. Two runs of
 the same configuration then differ by roughly one point of frame-name accuracy, which is enough to
-manufacture or erase a methodological difference. Every run behind a reported number used `--seed 42`
-(second seeds where an arm needed more than one draw), and the trainer prints the seed it actually used
+manufacture or erase a methodological difference. Runs from 2026-10-23 onward pass `--seed 42`
+(second seeds where an arm needed more than one draw), and the trainer prints the seed it actually used;
+three early role members (`t1ctl`, `t1neg`, `t1arg`, launched 2026-10-22/23) predate the rule and were
+started without `--seed`
 (`train_task3.py:362`).
 
 ## 7. Three more things that bit us

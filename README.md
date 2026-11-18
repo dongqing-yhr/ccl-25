@@ -37,7 +37,7 @@ one abstain rule, the one scorer) are identical across the three resources.
 | `runbash/` | cross-resource entry points: the three-ring decode ladder, the GPU queues that drive it, the probability sidecar dump, the equal-strength prior control |
 | `data-prep/` | scripts that build the CFN 1.0 and FrameNet 1.7 task-3 records and count each resource's label statistics |
 | `optional-backbones/` | adapters for two encoders that are not ours (LERT, Chinese-ModernBERT) used only for the "does the backbone carry the gain" control cell |
-| `docs/` | `scoring.md` (the two rulers and the frozen anchors), `reproduction.md` (pitfalls that cost us a run) |
+| `docs/` | `scoring.md` (the two rulers and the frozen anchors), `reproduction.md` (pitfalls that cost us a run), `configuration.md` (the final Test B assembly and its official server response) |
 
 The three working directories share the same production code. Measured on the committed blobs:
 `baseline_c10/` has 46 files and `baseline_en/` 47. Of the 45 paths shared by
@@ -140,7 +140,8 @@ before printing anything else:
 
 - Corpora, pretrained weights, checkpoints (225 zip archives and 393 MB of `pytorch_model.bin` files
   in the working tree), prediction products, run logs, submission packages.
-- The paper text. Tables and numbers are in the paper, not here.
+- The paper text. Most tables and numbers are in the paper; `docs/configuration.md` records only the
+  final Test B configuration and its official server response.
 - Three drivers that were kept out on purpose: `runbash/s2_task2_arms_1031.sh`,
   `runbash/s5_vote2_decode_1031.sh`, `runbash/t2_shift_ours_vs_theirs_1103.sh`. They hard-code another
   team's unpublished development figures or a copy of that team's hyper-parameter table, and those
@@ -156,6 +157,9 @@ before printing anything else:
 470-character input cap for English records and where the number comes from, why the legal role list is
 unioned across splits, how to tell whether a cell actually finished when every round rewrites the same
 checkpoint name.
+
+`docs/configuration.md` — the final frozen Test B assembly, which values were selected on development,
+and the official server response associated with that configuration.
 
 `docs/scoring.md` — the two rulers written out, which denominator each uses, and the difference between
 the 1 995-sentence scorer and the 2 300 released development rows (never print those two as one
